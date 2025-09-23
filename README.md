@@ -8,22 +8,19 @@ UHC
 
 # Modulos
 
-This plugin offers multiple modules. Each module has an 'icon' in the UHC inventory that can be opened via `/uhc` or 
-`/uhc show`
+Este plugin ofrece múltiples módulos. Cada módulo tiene un “icono” en el inventario de UHC que puede abrirse mediante /uhc o /uhc show.
 
-Example view of the inventory:
+Vista de ejemplo del inventario:
 
 ![Example Inventory](images/example-inventory.png)
 
-Hovering over the icon will show the status + configuration of the module:
+Al pasar el cursor sobre el icono se mostrará el estado y la configuración del módulo:
 
 ![Example config](images/example-inventory-with-config.png)
 
-If you have permission and the module is disableable you can click on the icon
-to toggle the enabled status of the module. You will then need to click on a green
-piece of wool to confirm that you want to toggle the module to avoid misclicks.
+Si tienes permiso y el módulo se puede desactivar, puedes hacer clic en el icono para alternar el estado de activado del módulo. Luego deberás hacer clic en un bloque de lana verde para confirmar que deseas alternar el módulo y así evitar clics accidentales.
 
-List of modules provided by the plugin:
+Lista de módulos que proporciona el plugin:
 
 - [HardDifficulty](docs/modules/HardDifficulty.md)
 - [HealthRegen](docs/modules/HealthRegen.md)
