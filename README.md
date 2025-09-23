@@ -1,20 +1,12 @@
 UHC
 ===
 
-This is a plugin to help run games of UltraHardcore.
+  -Este plugin actualmente esta en work in progress, por lo que puede aun ser inestable, presentar bugs, o mecanicas no estar aun funcionando como deberian. y esta diseñado para facilitar la implementacion del modo de juego ultrahardcore.
 
-This plugin is developed for Spigot 1.8+ and Java 7+.
+  -Este plugin esta preparado para funcionar con paper 1.20.5
 
-Master [![Master Branch Build Status](https://travis-ci.org/Eluinhost/UHC.svg?branch=master)](https://travis-ci.org/Eluinhost/UHC)
 
-## Other Useful Plugins
-
-- [FancyFreeze](https://github.com/Eluinhost/FancyFreeze/releases) - Freezes players in an area where they can't move
-out of it, give/take damage, heal e.t.c.
-
-- [Scatterer](https://github.com/Eluinhost/Scatterer/releases) - Scatter players across the map, solo or by teams.
-
-# Modules
+# Modulos
 
 This plugin offers multiple modules. Each module has an 'icon' in the UHC inventory that can be opened via `/uhc` or 
 `/uhc show`
@@ -66,7 +58,7 @@ List of modules provided by the plugin:
 - [ChatHealth](docs/modules/ChatHealth.md)
 - [NerfQuartzXP](docs/modules/NerfQuartzXP.md)
 
-Each module has the a section in the config.yml like this:
+Cada modulo tiene su apartado en config.yml y se ve como:
 
 ```yaml
 modules:
@@ -75,26 +67,23 @@ modules:
   healthregen:
     ... etc ...
 ```
-
-All modules have a configuration option:
+Todos los modulos tienen la opcion a ser deshabilitados o habilitados 
 
 ```yaml
-load: true
+load: true/false
 ```
 
-If this is set to false then the module is not even loaded on plugin startup and will not show up
-in the game. Use this to remove any modules you don't want to run at all.
+Si esto se establece en false, entonces el módulo ni siquiera se carga al iniciar el plugin y no aparecerá en el juego. Usa esto para eliminar cualquier módulo que no quieras ejecutar en absoluto.
 
-Any disableable modules will also contain:
+Cualquier módulo desactivable también contendrá:
 
 ```yaml
 enabled: true 
 ```
 
-This is the initial state to set the module to after loading. Any changes via the [uhc command](docs/commands/uhc.md) or via the conifg
-inventory will be saved to this option so changes are saved across saves/reloads.
+Este es el estado inicial que se asignará al módulo después de cargarse. Cualquier cambio realizado mediante el comando uhc o a través del inventario de configuración se guardará en esta opción, de modo que los cambios se conserven entre partidas/recargas.
 
-There is also a list of weights:
+También hay una lista de pesos:
 
 ```yaml
 weights:
@@ -105,10 +94,9 @@ weights:
   ...
   ...
 ```
+Los módulos se ordenan según sus pesos dentro del inventario de /uhc. Modificar estos números cambiará el orden.
 
-The modules are sorted by their weights inside the `/uhc` inventory. Modifying these numbers will modify the orders.
-
-You can also add 'spacers' (fake empty space) into the inventory by modifying the spacers option:
+También puedes añadir “espaciadores” (espacios vacíos falsos) al inventario modificando la opción de spacers:
 
 ```yaml
 spacers: []
@@ -118,11 +106,11 @@ spacers:
 - 30
 ```
 
-Each number is a weight at which to place a spacer icon. NOTE the inventory can only handle up to 54 icons total (6*9)
+Cada número es un peso en el que se colocará un icono de espaciador. NOTA: el inventario solo puede manejar hasta 54 iconos en total (6*9).
 
-## Commands
+## Comandos
 
-[Information on commands with flags](docs/commands/Commands.md)
+[Información sobre comandos con banderas (flags).](docs/commands/Commands.md)
 
 - [Team Commands](docs/commands/teams/TeamCommands.md)
 - [Player Reset Commands](docs/commands/PlayerResetCommands.md)
@@ -136,6 +124,6 @@ Each number is a weight at which to place a spacer icon. NOTE the inventory can 
 - [/wlist](docs/commands/wlist.md)
 - [/permaday](docs/commands/permaday.md)
 
-## Message modification
+Modificación de mensajes
 
-A lot of messages sent by the plugin can be modified. Check out the [documentation on message modification](docs/messagemodification.md)
+Muchos de los mensajes enviados por el complemento pueden modificarse. Revisa la documentación sobre la modificación de mensajes
