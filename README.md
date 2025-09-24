@@ -1,7 +1,11 @@
 UHC
 ===
 
+<<<<<<< HEAD
   -Este plugin actualmente esta en work in progress, por lo que puede aun ser inestable, presentar bugs, o mecanicas que no estar aun funcionando como deberian. y esta diseñado para facilitar la implementacion del modo de juego ultrahardcore.
+=======
+  -Este plugin actualmente esta en work in progress, por lo que puede aun ser inestable, presentar bugs, o mecanicas no estar aun funcionando como deberian. y esta diseñado para facilitar la implementacion del modo de juego ultrahardcore.
+>>>>>>> 13256756f5e5a5184d590674e2b07012c3e16a09
 
   -Este plugin esta preparado para funcionar con paper 1.20.5
 
