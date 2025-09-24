@@ -1,29 +1,48 @@
 UHC
 ===
 
+This is a plugin to help run games of UltraHardcore.
 
-  -Este plugin actualmente esta en work in progress, por lo que puede aun ser inestable, presentar bugs, o mecanicas que no estar aun funcionando como deberian. y esta diseñado para facilitar la implementacion del modo de juego ultrahardcore.
-=======
-  -Este plugin actualmente esta en work in progress, por lo que puede aun ser inestable, presentar bugs, o mecanicas no estar aun funcionando como deberian. y esta diseñado para facilitar la implementacion del modo de juego ultrahardcore.
+This plugin now targets modern Minecraft builds and is compiled against Paper/Spigot 1.20.5 with Java 21.
 
-  -Este plugin esta preparado para funcionar con paper 1.20.5
+## Building
 
+This project uses Maven with Java 21. Ensure `JAVA_HOME` points to a JDK 21 installation, then run:
 
-# Modulos
+```
+mvn -B -DskipTests package
+```
 
-Este plugin ofrece múltiples módulos. Cada módulo tiene un “icono” en el inventario de UHC que puede abrirse mediante /uhc o /uhc show.
+The shaded plugin jar is written to `target/uhc-1.1.0.jar`. FlagCommands 1.2.1 is not in Maven Central; if your local cache is missing it, clone https://github.com/Eluinhost/FlagCommand and run `mvn -B -DskipTests install` once to populate your local repository.
 
-Vista de ejemplo del inventario:
+## Test Server
+
+A ready-to-run Paper 1.20.5 test environment is available under `server-1.20.5`. Accept the EULA in `eula.txt` if needed and launch `start-server.bat`. The freshly built plugin is already copied into `server-1.20.5/plugins/`.
+## Other Useful Plugins
+
+- [FancyFreeze](https://github.com/Eluinhost/FancyFreeze/releases) - Freezes players in an area where they can't move
+out of it, give/take damage, heal e.t.c.
+
+- [Scatterer](https://github.com/Eluinhost/Scatterer/releases) - Scatter players across the map, solo or by teams.
+
+# Modules
+
+This plugin offers multiple modules. Each module has an 'icon' in the UHC inventory that can be opened via `/uhc` or 
+`/uhc show`
+
+Example view of the inventory:
 
 ![Example Inventory](images/example-inventory.png)
 
-Al pasar el cursor sobre el icono se mostrará el estado y la configuración del módulo:
+Hovering over the icon will show the status + configuration of the module:
 
 ![Example config](images/example-inventory-with-config.png)
 
-Si tienes permiso y el módulo se puede desactivar, puedes hacer clic en el icono para alternar el estado de activado del módulo. Luego deberás hacer clic en un bloque de lana verde para confirmar que deseas alternar el módulo y así evitar clics accidentales.
+If you have permission and the module is disableable you can click on the icon
+to toggle the enabled status of the module. You will then need to click on a green
+piece of wool to confirm that you want to toggle the module to avoid misclicks.
 
-Lista de módulos que proporciona el plugin:
+List of modules provided by the plugin:
 
 - [HardDifficulty](docs/modules/HardDifficulty.md)
 - [HealthRegen](docs/modules/HealthRegen.md)
@@ -58,7 +77,7 @@ Lista de módulos que proporciona el plugin:
 - [ChatHealth](docs/modules/ChatHealth.md)
 - [NerfQuartzXP](docs/modules/NerfQuartzXP.md)
 
-Cada modulo tiene su apartado en config.yml y se ve como:
+Each module has the a section in the config.yml like this:
 
 ```yaml
 modules:
@@ -67,23 +86,26 @@ modules:
   healthregen:
     ... etc ...
 ```
-Todos los modulos tienen la opcion a ser deshabilitados o habilitados 
+
+All modules have a configuration option:
 
 ```yaml
-load: true/false
+load: true
 ```
 
-Si esto se establece en false, entonces el módulo ni siquiera se carga al iniciar el plugin y no aparecerá en el juego. Usa esto para eliminar cualquier módulo que no quieras ejecutar en absoluto.
+If this is set to false then the module is not even loaded on plugin startup and will not show up
+in the game. Use this to remove any modules you don't want to run at all.
 
-Cualquier módulo desactivable también contendrá:
+Any disableable modules will also contain:
 
 ```yaml
 enabled: true 
 ```
 
-Este es el estado inicial que se asignará al módulo después de cargarse. Cualquier cambio realizado mediante el comando uhc o a través del inventario de configuración se guardará en esta opción, de modo que los cambios se conserven entre partidas/recargas.
+This is the initial state to set the module to after loading. Any changes via the [uhc command](docs/commands/uhc.md) or via the conifg
+inventory will be saved to this option so changes are saved across saves/reloads.
 
-También hay una lista de pesos:
+There is also a list of weights:
 
 ```yaml
 weights:
@@ -94,9 +116,10 @@ weights:
   ...
   ...
 ```
-Los módulos se ordenan según sus pesos dentro del inventario de /uhc. Modificar estos números cambiará el orden.
 
-También puedes añadir “espaciadores” (espacios vacíos falsos) al inventario modificando la opción de spacers:
+The modules are sorted by their weights inside the `/uhc` inventory. Modifying these numbers will modify the orders.
+
+You can also add 'spacers' (fake empty space) into the inventory by modifying the spacers option:
 
 ```yaml
 spacers: []
@@ -106,11 +129,11 @@ spacers:
 - 30
 ```
 
-Cada número es un peso en el que se colocará un icono de espaciador. NOTA: el inventario solo puede manejar hasta 54 iconos en total (6*9).
+Each number is a weight at which to place a spacer icon. NOTE the inventory can only handle up to 54 icons total (6*9)
 
-## Comandos
+## Commands
 
-[Información sobre comandos con banderas (flags).](docs/commands/Commands.md)
+[Information on commands with flags](docs/commands/Commands.md)
 
 - [Team Commands](docs/commands/teams/TeamCommands.md)
 - [Player Reset Commands](docs/commands/PlayerResetCommands.md)
@@ -124,6 +147,10 @@ Cada número es un peso en el que se colocará un icono de espaciador. NOTA: el 
 - [/wlist](docs/commands/wlist.md)
 - [/permaday](docs/commands/permaday.md)
 
-Modificación de mensajes
+## Message modification
 
-Muchos de los mensajes enviados por el complemento pueden modificarse. Revisa la documentación sobre la modificación de mensajes
+A lot of messages sent by the plugin can be modified. Check out the [documentation on message modification](docs/messagemodification.md)
+
+
+
+

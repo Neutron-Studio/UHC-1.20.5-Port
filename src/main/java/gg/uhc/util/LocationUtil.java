@@ -1,0 +1,102 @@
+/*
+ * Project: UHC
+ * Class: gg.uhc.uhc.util.LocationUtil
+ *
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2015 Graham Howden <graham_howden1 at yahoo.co.uk>.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+package gg.uhc.uhc.util;
+
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.Tag;
+import org.bukkit.World;
+import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
+
+public class LocationUtil {
+
+    protected static boolean damagesPlayer(Material material) {
+        return material == Material.LAVA || material == Material.CACTUS || material == Material.FIRE;
+    }
+
+    protected static boolean canStandOn(Material material) {
+        if (Tag.DOORS.isTagged(material) || Tag.TRAPDOORS.isTagged(material)) {
+            return false;
+        }
+
+        if (Tag.SIGNS.isTagged(material) || Tag.WALL_SIGNS.isTagged(material) || Tag.BANNERS.isTagged(material)) {
+            return false;
+        }
+
+        if (Tag.PRESSURE_PLATES.isTagged(material)) {
+            return false;
+        }
+
+        return material.isSolid();
+    }
+
+    /**
+     * Checks for the highest safe to stand on block with 2 un-solid blocks above it (excluding above world height)
+     *
+     * Does not teleport on to non-solid blocks or blocks that can damage the player.
+     *
+     * Only teleports into water if it is not at head height (feet only)
+     *
+     * If the world type is NETHER then searching will start at 128 instead of the world max height to avoid the
+     * bedrock roof.
+     *
+     * @return -1 if no valid location found, otherwise coordinate with non-air Y coord with 2 air blocks above it
+     */
+    public static int findHighestTeleportableY(World world, int x, int z) {
+        Location startingLocation = new Location(world, x, world.getEnvironment() == World.Environment.NETHER ? 128 : world.getMaxHeight(), z);
+
+        boolean above2WasSafe = false;
+        boolean aboveWasSafe = false;
+        boolean above2WasWater = false;
+        boolean aboveWasWater = false;
+
+        Block currentBlock = startingLocation.getBlock();
+
+        while (currentBlock.getY() >= 0) {
+            Material type = currentBlock.getType();
+
+            boolean damagesPlayer = damagesPlayer(type);
+            boolean canStandOn = canStandOn(type);
+
+            if (above2WasSafe && aboveWasSafe && !above2WasWater && !damagesPlayer && canStandOn) {
+                return currentBlock.getY();
+            }
+
+            above2WasSafe = aboveWasSafe;
+            aboveWasSafe = !canStandOn && !damagesPlayer;
+
+            above2WasWater = aboveWasWater;
+            aboveWasWater = type == Material.WATER;
+
+            currentBlock = currentBlock.getRelative(BlockFace.DOWN);
+        }
+
+        return -1;
+    }
+}
