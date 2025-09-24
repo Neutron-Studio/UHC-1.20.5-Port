@@ -15,16 +15,6 @@ mvn -B -DskipTests package
 
 The shaded plugin jar is written to `target/uhc-1.1.0.jar`. FlagCommands 1.2.1 is not in Maven Central; if your local cache is missing it, clone https://github.com/Eluinhost/FlagCommand and run `mvn -B -DskipTests install` once to populate your local repository.
 
-## Test Server
-
-A ready-to-run Paper 1.20.5 test environment is available under `server-1.20.5`. Accept the EULA in `eula.txt` if needed and launch `start-server.bat`. The freshly built plugin is already copied into `server-1.20.5/plugins/`.
-## Other Useful Plugins
-
-- [FancyFreeze](https://github.com/Eluinhost/FancyFreeze/releases) - Freezes players in an area where they can't move
-out of it, give/take damage, heal e.t.c.
-
-- [Scatterer](https://github.com/Eluinhost/Scatterer/releases) - Scatter players across the map, solo or by teams.
-
 # Modules
 
 This plugin offers multiple modules. Each module has an 'icon' in the UHC inventory that can be opened via `/uhc` or 
